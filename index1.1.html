@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TheraFlex Rehab+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0C1A33;
+  --navy2:#142344;
+  --navy3:#1C2E56;
+  --blue:#2563EB;
+  --blue2:#3B82F6;
+  --blue-light:#EFF6FF;
+  --blue-mid:#BFDBFE;
+  --cyan:#06B6D4;
+  --cyan2:#22D3EE;
+  --green:#10B981;
+  --green-light:#ECFDF5;
+  --amber:#F59E0B;
+  --amber-light:#FFFBEB;
+  --danger:#EF4444;
+  --danger-light:#FEF2F2;
+  --purple:#7C3AED;
+  --pink:#EC4899;
+  --bg:#F1F5F9;
+  --surface:#FFFFFF;
+  --border:#E2E8F0;
+  --text:#0F172A;
+  --muted:#64748B;
+  --muted2:#94A3B8;
+  --sh:0 1px 3px rgba(15,23,42,.06),0 6px 20px rgba(15,23,42,.06);
+  --sh-md:0 4px 12px rgba(15,23,42,.10),0 16px 40px rgba(15,23,42,.08);
+  --r:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:'Plus Jakarta Sans',ui-sans-serif,system-ui,sans-serif;
+  background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;
+}
+button{font:inherit;cursor:pointer}
+
+/* ══ APP SHELL ══════════════════════════════════════════════════════ */
+.app{display:grid;grid-template-columns:210px 1fr;height:100vh}
+
+/* ══ SIDEBAR ════════════════════════════════════════════════════════ */
+.sidebar{
+  background:var(--navy);
+  display:flex;flex-direction:column;
+  height:100vh;overflow:hidden;
+  border-right:1px solid rgba(255,255,255,.04);
+  position:relative;
+}
+.sidebar::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:220px;
+  background:radial-gradient(ellipse at 50% 0%,rgba(37,99,235,.3),transparent 70%);
+  pointer-events:none;
+}
+
+/* Brand */
+.brand{
+  padding:18px 16px 14px;
+  display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  position:relative;z-index:1;
+}
+.logo-wrap{
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--cyan),var(--blue));
+  display:grid;place-items:center;font-size:18px;
+  box-shadow:0 4px 16px rgba(6,182,212,.35);
+}
+.brand h1{font-size:14px;font-weight:800;color:#fff;line-height:1.05;letter-spacing:-.01em}
+.brand small{font-size:10px;color:var(--cyan2);font-weight:600;letter-spacing:.06em;display:block;margin-top:1px}
+
+/* Nav */
+.nav{flex:1;overflow-y:auto;scrollbar-width:none;padding:14px 10px 8px;position:relative;z-index:1}
+.nav::-webkit-scrollbar{display:none}
+.nav-group-label{
+  font-size:9.5px;font-weight:700;
+  color:rgba(255,255,255,.28);
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:0 8px;margin:10px 0 5px;
+}
+.nav-group-label:first-child{margin-top:0}
+.nav-btn{
+  display:flex;align-items:center;gap:9px;
+  padding:8px 10px;border-radius:8px;
+  color:rgba(255,255,255,.55);
+  font-size:13px;font-weight:500;
+  border:0;background:transparent;
+  width:100%;text-align:left;
+  transition:.14s ease;
+  margin-bottom:1px;position:relative;
+}
+.nav-btn:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.9)}
+.nav-btn.active{background:rgba(37,99,235,.25);color:#fff;font-weight:700}
+.nav-btn.active::before{
+  content:"";position:absolute;left:0;top:6px;bottom:6px;
+  width:3px;border-radius:0 3px 3px 0;background:var(--blue2);
+}
+.nav-btn .nicon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
+.nav-sep{height:1px;background:rgba(255,255,255,.06);margin:8px 8px}
+
+/* Signal box */
+.sig-panel{
+  padding:12px 14px 10px;
+  border-top:1px solid rgba(255,255,255,.06);
+  position:relative;z-index:1;
+}
+.sig-title{
+  font-size:9.5px;font-weight:700;
+  color:rgba(255,255,255,.28);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px;
+}
+.sig-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0}
+.sig-k{font-size:11px;color:rgba(255,255,255,.4)}
+.sig-v{font-size:12px;font-weight:700;color:rgba(255,255,255,.88);font-variant-numeric:tabular-nums}
+
+/* Sidebar footer */
+.sb-footer{padding:10px 12px;border-top:1px solid rgba(255,255,255,.06);position:relative;z-index:1}
+.end-btn{
+  width:100%;padding:8px 12px;
+  border-radius:8px;border:1px solid rgba(239,68,68,.28);
+  background:rgba(239,68,68,.1);
+  color:#FCA5A5;font-size:12px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  transition:.14s ease;
+}
+.end-btn:hover{background:rgba(239,68,68,.2);color:#FECACA;border-color:rgba(239,68,68,.45)}
+
+/* Status dot (reused from JS logic) */
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--purple);box-shadow:0 0 8px currentColor}
+.dot.ok{background:var(--green)}
+.dot.err{background:var(--danger)}
+.dot.demo{background:var(--purple)}
+
+/* ══ MAIN ════════════════════════════════════════════════════════════ */
+.main{
+  display:grid;
+  grid-template-rows:60px 1fr 82px;
+  height:100vh;
+  gap:0;
+  padding:12px 14px 12px 12px;
+  min-width:0;
+}
+
+/* Topbar */
+.topbar{
+  background:var(--surface);
+  border-radius:10px;
+  padding:0 18px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  box-shadow:var(--sh);
+  border:1px solid var(--border);
+  margin-bottom:10px;
+}
+.page-title{font-size:15px;font-weight:800;color:var(--text);letter-spacing:-.02em}
+.page-sub{font-size:11px;color:var(--muted);margin-top:0px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:380px}
+.topbar-r{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.kpi-pill{
+  display:flex;align-items:center;gap:5px;
+  padding:5px 11px;border-radius:999px;
+  font-size:11px;font-weight:700;
+}
+.kpi-lv{background:var(--blue-light);border:1px solid var(--blue-mid);color:#1D4ED8}
+.kpi-bdg{background:#F0FDF4;border:1px solid #BBF7D0;color:#15803D}
+.status-pill{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 11px;border-radius:999px;
+  border:1px solid var(--border);background:var(--bg);
+  font-size:11px;font-weight:600;color:var(--muted);
+}
+.patient-chip{
+  display:flex;align-items:center;gap:8px;
+  padding:5px 12px 5px 5px;border-radius:999px;
+  border:1px solid var(--border);background:var(--surface);
+  box-shadow:0 1px 4px rgba(0,0,0,.05);
+}
+.p-avatar{
+  width:30px;height:30px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  display:grid;place-items:center;font-size:12px;font-weight:800;color:#fff;
+}
+.p-name{font-size:12px;font-weight:700;color:var(--text)}
+.p-role{font-size:10px;color:var(--muted)}
+
+/* Stage */
+.stage{
+  background:var(--surface);border-radius:10px;
+  box-shadow:var(--sh);border:1px solid var(--border);
+  position:relative;overflow:hidden;margin-bottom:10px;
+}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1}
+.screen{
+  position:absolute;inset:0;z-index:2;overflow:auto;
+  padding:26px 30px;
+  background:linear-gradient(135deg,rgba(255,255,255,.99),rgba(239,247,255,.97));
+}
+.screen.hidden{display:none}
+.screen h2{font-size:26px;letter-spacing:-.03em;margin-bottom:6px;color:var(--text);font-weight:800}
+.screen .lead{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:18px;max-width:880px}
+
+/* Screen cards & grids */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.select-card{
+  cursor:pointer;background:var(--surface);
+  border:1.5px solid var(--border);border-radius:var(--r);
+  padding:18px;min-height:155px;box-shadow:var(--sh);
+  transition:.18s ease;position:relative;overflow:hidden;
+}
+.select-card:hover{transform:translateY(-2px);box-shadow:var(--sh-md);border-color:var(--blue-mid)}
+.select-card::after{
+  content:"";position:absolute;right:-18px;top:-18px;
+  width:65px;height:65px;border-radius:50%;
+  background:rgba(37,99,235,.07);
+}
+.icon{font-size:28px;margin-bottom:8px}
+.select-card h3{font-size:15px;color:var(--text);margin-bottom:6px;font-weight:700}
+.select-card p{font-size:12px;color:var(--muted);line-height:1.5}
+.tag{
+  display:inline-block;margin-top:9px;padding:3px 9px;border-radius:999px;
+  background:var(--blue-light);color:var(--blue);
+  font-size:11px;font-weight:700;border:1px solid var(--blue-mid);
+}
+.objective{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+.info-box{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:13px;margin-bottom:9px;box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+.info-box b{display:block;color:var(--text);margin-bottom:4px;font-size:12.5px;font-weight:700}
+.info-box p{font-size:12px;color:var(--muted);line-height:1.5}
+.progress{height:7px;border-radius:999px;background:var(--border);overflow:hidden;margin-top:9px}
+.progress div{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--blue));transition:width .3s}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:9px 16px;border-radius:8px;
+  font-size:12.5px;font-weight:600;
+  border:1.5px solid var(--border);background:var(--surface);color:var(--text);
+  cursor:pointer;transition:.14s ease;width:100%;margin-top:8px;
+}
+.btn:hover{background:var(--bg)}
+.btn.primary{
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  border:0;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,.3);
+}
+.btn.primary:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn.green{background:var(--green-light);color:#065F46;border-color:#A7F3D0}
+.btn.amber{background:var(--amber-light);color:#92400E;border-color:#FDE68A}
+.btn.red{background:var(--danger-light);color:#991B1B;border-color:#FECACA}
+.btn.blue{background:var(--blue-light);color:#1E40AF;border-color:var(--blue-mid)}
+.btn.light{background:#fff;color:var(--text);border-color:var(--border)}
+
+/* Bottom bar */
+.bottom{
+  background:var(--surface);border-radius:10px;
+  padding:0 20px;box-shadow:var(--sh);border:1px solid var(--border);
+  display:grid;grid-template-columns:290px 1fr 180px;
+  align-items:center;gap:16px;
+}
+.emg-wrap{min-width:0}
+.emg-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.emg-head .elabel{font-size:9.5px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.emg-head .evalue{font-size:12px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+.emg-bar{height:10px;border-radius:999px;background:var(--border);position:relative;overflow:hidden}
+.emg-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--cyan),var(--blue));
+  border-radius:999px;
+  box-shadow:0 0 10px rgba(6,182,212,.4);
+  transition:width .06s linear,filter .1s;
+}
+.threshold{position:absolute;top:0;bottom:0;width:2px;background:rgba(15,23,42,.25);left:25%}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.chip{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:8px;padding:7px 9px;
+}
+.chip .cl{font-size:9.5px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:1px}
+.chip .cv{font-size:13px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.reps-box{text-align:right}
+.reps-box .rl{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.reps-box .rv{font-size:38px;font-weight:800;color:var(--text);line-height:1;font-variant-numeric:tabular-nums}
+
+/* Modal */
+.modal-bg{
+  position:fixed;inset:0;
+  background:rgba(15,23,42,.55);backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;
+  z-index:20;padding:20px;
+}
+.modal-bg.show{display:flex}
+.modal{
+  width:min(800px,96vw);max-height:88vh;overflow:auto;
+  background:var(--surface);border-radius:16px;
+  box-shadow:0 32px 80px rgba(15,23,42,.25);
+  padding:26px;border:1px solid var(--border);
+}
+.modal h2{font-size:22px;color:var(--text);margin-bottom:8px;font-weight:800}
+.modal h3{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 7px}
+.modal p{color:var(--muted);line-height:1.6;margin:6px 0;font-size:12.5px}
+.modal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin:10px 0}
+.modal-item{padding:11px;border-radius:9px;background:var(--bg);border:1px solid var(--border)}
+.modal-item b{display:block;color:var(--text);margin-bottom:3px;font-size:12.5px;font-weight:700}
+.modal-item span{font-size:12px;color:var(--muted);line-height:1.5}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.actions .btn{width:auto;margin-top:0;min-width:135px}
+.actions .btn:not(.primary):not(.green):not(.amber):not(.red){background:var(--bg);color:var(--text);border-color:var(--border)}
+.pain{display:grid;grid-template-columns:repeat(11,1fr);gap:5px;margin:12px 0}
+.pain button{
+  cursor:pointer;border:1.5px solid var(--border);border-radius:7px;
+  background:var(--bg);color:var(--text);font-weight:700;font-size:13px;
+  padding:10px 0;transition:.14s ease;
+}
+.pain button:hover{background:var(--blue-light);border-color:var(--blue-mid)}
+.badge{display:inline-block;margin:3px;padding:4px 9px;border-radius:999px;background:var(--blue-light);border:1px solid var(--blue-mid);color:#1E40AF;font-size:11px;font-weight:700}
+.badge.new{background:var(--green-light);border-color:#A7F3D0;color:#065F46}
+
+@media(max-width:960px){
+  body{overflow:auto}
+  .app{grid-template-columns:1fr;height:auto}
+  .sidebar{height:auto}
+  .main{height:auto;grid-template-rows:auto 500px auto;padding:10px}
+  .grid3,.grid2,.objective{grid-template-columns:1fr}
+  .bottom{grid-template-columns:1fr;padding:12px 14px}
+  .chips{grid-template-columns:repeat(2,1fr)}
+  .reps-box{text-align:left}
+  .pain{grid-template-columns:repeat(6,1fr)}
+  .topbar-r .patient-chip,.topbar-r .status-pill{display:none}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ═══ SIDEBAR ═══════════════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <!-- Brand -->
+    <div class="brand">
+      <div class="logo-wrap">🖐️</div>
+      <div>
+        <h1>TheraFlex</h1>
+        <small>REHAB+</small>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+      <div class="nav-group-label">Principal</div>
+      <button class="nav-btn active" id="homeBtn">
+        <span class="nicon">🏠</span>Panel principal
+      </button>
+      <button class="nav-btn" id="therapyBtn">
+        <span class="nicon">▶️</span>Iniciar terapia
+      </button>
+
+      <div class="nav-sep"></div>
+      <div class="nav-group-label">Entrada de señal</div>
+      <button class="nav-btn" id="demoBtn">
+        <span class="nicon">🖱️</span>Demo mouse
+      </button>
+      <button class="nav-btn" id="serialBtn">
+        <span class="nicon">🔌</span>Sensor EMG
+      </button>
+
+      <div class="nav-sep"></div>
+      <div class="nav-group-label">Sesión</div>
+      <button class="nav-btn" id="calBtn">
+        <span class="nicon">⚙️</span>Calibrar paciente
+      </button>
+      <button class="nav-btn" id="summaryBtn">
+        <span class="nicon">📊</span>Resumen sesión
+      </button>
+    </nav>
+
+    <!-- Signal metrics -->
+    <div class="sig-panel">
+      <div class="sig-title">Señal EMG</div>
+      <div class="sig-row"><span class="sig-k">Ruido base</span><span class="sig-v" id="minVal">0.0</span></div>
+      <div class="sig-row"><span class="sig-k">Máximo</span><span class="sig-v" id="maxVal">100.0</span></div>
+      <div class="sig-row"><span class="sig-k">Umbral</span><span class="sig-v" id="thrVal">25.0</span></div>
+      <div class="sig-row"><span class="sig-k">Tiempo en zona</span><span class="sig-v" id="zoneVal">0s</span></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="sb-footer">
+      <button class="end-btn" id="endBtn">
+        <span>⏹</span> Finalizar sesión
+      </button>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ════════════════════════════════════════════════════════ -->
+  <main class="main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div>
+        <div class="page-title" id="pageTitle">Panel principal</div>
+        <div class="page-sub" id="pageSub">Selecciona entrada, calibra y elige una terapia.</div>
+      </div>
+      <div class="topbar-r">
+        <div class="kpi-pill kpi-lv">Nivel&nbsp;<span id="levelTop">1</span></div>
+        <div class="kpi-pill kpi-bdg">🏅&nbsp;<span id="badgeTop">0</span></div>
+        <div class="status-pill">
+          <span id="statusDot" class="dot demo"></span>
+          <span id="statusText">Demo mouse activo</span>
+        </div>
+        <div class="patient-chip">
+          <div class="p-avatar">P</div>
+          <div>
+            <div class="p-name">Paciente</div>
+            <div class="p-role">Rehabilitación</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Stage (canvas + screen overlay) -->
+    <section class="stage" id="stage">
+      <canvas id="canvas"></canvas>
+      <div id="screen" class="screen"></div>
+    </section>
+
+    <!-- Bottom bar -->
+    <footer class="bottom">
+      <!-- EMG signal -->
+      <div class="emg-wrap">
+        <div class="emg-head">
+          <span class="elabel">Intensidad DSP</span>
+          <span class="evalue" id="rawText">0.0</span>
+        </div>
+        <div class="emg-bar">
+          <div id="signalFill" class="emg-fill"></div>
+          <div id="thresholdLine" class="threshold"></div>
+        </div>
+      </div>
+      <!-- Chips -->
+      <div class="chips">
+        <div class="chip"><div class="cl">Tiempo</div><div class="cv" id="timeText">00:00</div></div>
+        <div class="chip"><div class="cl">Terapia</div><div class="cv" id="therapyText">—</div></div>
+        <div class="chip"><div class="cl">Modo</div><div class="cv" id="modeText">—</div></div>
+        <div class="chip"><div class="cl">Estado</div><div class="cv" id="activeText">Reposo</div></div>
+      </div>
+      <!-- Reps -->
+      <div class="reps-box">
+        <div class="rl">Repeticiones</div>
+        <div class="rv" id="repsText">0</div>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<!-- Modal -->
+<div id="modalBg" class="modal-bg">
+  <div class="modal">
+    <div id="modalContent"></div>
+    <div id="modalActions" class="actions"></div>
+  </div>
+</div>
+
+<script>
+const THERAPIES={
+coordination:{id:"coordination",icon:"🎯",name:"Coordinación motriz",color:"#7C3AED",short:"Activación rápida y control fino",therapy:"Activación selectiva, coordinación neuromuscular y control de pulsos musculares.",muscles:"Zona muscular asociada: flexores/extensores de dedos y muñeca, según ubicación de electrodos.",goal:"Mejorar precisión para pinza, escritura, agarre fino, reacción motora y uso de objetos pequeños.",arcade:"Salta obstáculos con contracciones rápidas.",therapeutic:"Activa solo cuando el marcador esté en la zona verde. En nivel 3 sigue patrones corto/largo.",badge:"Pulso preciso"},
+aperture:{id:"aperture",icon:"🖐️",name:"Apertura sostenida",color:"#0891B2",short:"Apertura/cierre y control estable",therapy:"Apertura/cierre de mano, control estable y rango activo de movimiento.",muscles:"Zona muscular asociada: flexores y extensores de dedos y muñeca, según ubicación de electrodos.",goal:"Mejorar apertura de mano, soltar objetos, preparar el agarre y apoyar la mano con mayor control.",arcade:"Controla la esfera: contracción = subir, reposo = bajar.",therapeutic:"Mantén la señal dentro de la zona verde; en nivel 3 completa abrir → sostener → relajar.",badge:"Apertura estable"},
+isometric:{id:"isometric",icon:"💪",name:"Fuerza isométrica",color:"#DB2777",short:"Fuerza sostenida y resistencia",therapy:"Fuerza de agarre, estabilidad de mano/muñeca y resistencia muscular.",muscles:"Zona muscular asociada: flexores de dedos, músculos del antebrazo y estabilizadores de muñeca.",goal:"Mejorar la capacidad de sostener objetos, mantener agarres y reducir fatiga durante actividades diarias.",arcade:"Llena la barra de energía con contracción fuerte.",therapeutic:"Mantén la fuerza dentro de una zona objetivo. Más fuerza no siempre es mejor.",badge:"Fuerza controlada"}
+};
+const MODE_LABEL={arcade:"Modo Arcade",therapeutic:"Modo Terapéutico"};
+const LEVELS={
+arcade:{coordination:{1:{name:"Familiarización",speed:6,spawn:1700,double:false,desc:"Obstáculos lentos y separados."},2:{name:"Control funcional",speed:7.8,spawn:1300,double:false,desc:"Obstáculos más frecuentes."},3:{name:"Reto terapéutico",speed:8.6,spawn:1150,double:true,desc:"Algunos obstáculos requieren doble activación."}},aperture:{1:{name:"Familiarización",speed:4.8,gap:210,desc:"Espacios amplios."},2:{name:"Control funcional",speed:5.8,gap:175,desc:"Espacios más estrechos."},3:{name:"Reto terapéutico",speed:6.8,gap:150,desc:"Mayor velocidad y control sostenido."}},isometric:{1:{name:"Familiarización",gain:.9,decay:.22,hold:0,desc:"La barra sube fácilmente."},2:{name:"Control funcional",gain:.82,decay:.36,hold:0,desc:"La barra baja si relaja."},3:{name:"Reto terapéutico",gain:.72,decay:.42,hold:2,desc:"Llena y sostiene 2 segundos."}}},
+therapeutic:{coordination:{1:{name:"Familiarización",window:.22,pulse:"simple",maxHold:.85,desc:"Una activación simple en zona amplia."},2:{name:"Control funcional",window:.16,pulse:"simple",maxHold:.55,desc:"Ventana verde más corta."},3:{name:"Reto terapéutico",window:.13,pulse:"pattern",maxHold:.45,desc:"Patrones corto-corto-largo."}},aperture:{1:{name:"Familiarización",min:35,max:75,hold:2,phase:false,desc:"Zona amplia, sostener 2 segundos."},2:{name:"Control funcional",min:45,max:70,hold:3,phase:false,desc:"Zona media, sostener 3 segundos."},3:{name:"Reto terapéutico",min:50,max:65,hold:3,phase:true,desc:"Abrir → sostener → relajar controlado."}},isometric:{1:{name:"Familiarización",min:55,max:75,hold:2,desc:"Mantener entre 55% y 75% por 2 segundos."},2:{name:"Control funcional",min:65,max:80,hold:4,desc:"Mantener entre 65% y 80% por 4 segundos."},3:{name:"Reto terapéutico",min:70,max:85,hold:5,desc:"Mantener entre 70% y 85% sin picos."}}}
+};
+const canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),stage=document.getElementById("stage"),screen=document.getElementById("screen");
+const ui={title:document.getElementById("pageTitle"),sub:document.getElementById("pageSub"),statusDot:document.getElementById("statusDot"),statusText:document.getElementById("statusText"),levelTop:document.getElementById("levelTop"),badgeTop:document.getElementById("badgeTop"),minVal:document.getElementById("minVal"),maxVal:document.getElementById("maxVal"),thrVal:document.getElementById("thrVal"),zoneVal:document.getElementById("zoneVal"),rawText:document.getElementById("rawText"),fill:document.getElementById("signalFill"),thrLine:document.getElementById("thresholdLine"),timeText:document.getElementById("timeText"),therapyText:document.getElementById("therapyText"),modeText:document.getElementById("modeText"),activeText:document.getElementById("activeText"),repsText:document.getElementById("repsText"),modalBg:document.getElementById("modalBg"),modalContent:document.getElementById("modalContent"),modalActions:document.getElementById("modalActions")};
+let inputMode="demo",mouseInside=false,mouseDown=false,mouseY=.85,clickPulse=0,minNoise=0,maxSignal=100,threshold=25,intensity=0;
+let state="home",selectedTherapy=null,selectedMode=null,selectedLevel=1,playing=false,paused=false,reps=0,totalReps=0,startTime=0,timeInZone=0,blockZone=0,maxActivation=0,blockStart=0,restEnd=0;
+let badges=JSON.parse(localStorage.getItem("te_badges")||"[]"),history=JSON.parse(localStorage.getItem("te_history")||"[]");
+let player={x:110,y:360,vy:0},obstacles=[],nextObs=0,cooldown=0,charge=0,holdTimer=0,targetX=0,marker=0,markerDir=1,pulseActive=false,phase="open";
+let session={startedAt:Date.now(),blocks:[],pain:[],badges:[],totalReps:0,maxActivation:0};
+class DSP{constructor(){this.buf=[];this.max=30;this.dc=0;this.alpha=.05;this.prev=0;this.out=0}process(raw){const v=Number(raw);if(!Number.isFinite(v))return 0;this.dc=(1-this.alpha)*this.dc+this.alpha*v;const ac=v-this.dc;this.out=.5*(ac+this.prev);this.prev=ac;const amp=Math.abs(this.out)*1.5;this.buf.push(amp);if(this.buf.length>this.max)this.buf.shift();return this.buf.reduce((a,b)=>a+b,0)/this.buf.length}}
+const dsp=new DSP();
+function resize(){const r=stage.getBoundingClientRect();canvas.width=Math.max(660,Math.floor(r.width));canvas.height=Math.max(440,Math.floor(r.height))}window.addEventListener("resize",resize);resize();
+stage.addEventListener("mousemove",e=>{const r=stage.getBoundingClientRect();mouseInside=true;mouseY=Math.max(0,Math.min(1,(e.clientY-r.top)/r.height))});stage.addEventListener("mouseleave",()=>mouseInside=false);stage.addEventListener("mousedown",()=>{mouseDown=true;clickPulse=1});window.addEventListener("mouseup",()=>mouseDown=false);
+function demoValue(){let base=mouseInside?(1-mouseY)*96:8;if(mouseDown)base=Math.max(base,88);clickPulse*=.91;return Math.max(0,Math.min(120,base+clickPulse*25+(Math.random()-.5)*5))}function inputUpdate(){if(inputMode==="demo")intensity=intensity*.72+demoValue()*.28}function pct(){return Math.max(0,Math.min(100,(intensity-minNoise)/Math.max(1,maxSignal-minNoise)*100))}function active(){return intensity>threshold}function inRange(min,max){const p=pct();return p>=min&&p<=max}function setStatus(txt,type){ui.statusText.textContent=txt;ui.statusDot.className="dot "+(type||"demo")}
+async function connectSerial(){if(!("serial" in navigator)){setStatus("Web Serial no disponible. Usa Chrome o Edge.","err");return}try{const port=await navigator.serial.requestPort();await port.open({baudRate:9600});inputMode="serial";setStatus("Sensor EMG conectado","ok");const decoder=new TextDecoderStream();port.readable.pipeTo(decoder.writable);const reader=decoder.readable.getReader();let buffer="";while(true){const {value,done}=await reader.read();if(done)break;buffer+=value;const lines=buffer.split(/\r?\n/);buffer=lines.pop();for(const l of lines){const v=parseFloat(l.trim());if(Number.isFinite(v))intensity=dsp.process(v)}}}catch(e){setStatus("No se pudo conectar. Sigue modo mouse.","err");inputMode="demo"}}
+function showScreen(html,title="Panel principal",sub="Selecciona entrada, calibra y elige una terapia."){screen.innerHTML=html;screen.classList.remove("hidden");playing=false;ui.title.textContent=title;ui.sub.textContent=sub}function hideScreen(){screen.classList.add("hidden");screen.innerHTML=""}
+function home(){state="home";selectedTherapy=null;selectedMode=null;reps=0;playing=false;showScreen(`<h2>TheraFlex Rehab+</h2><p class="lead">Sistema de biofeedback EMG gamificado para rehabilitación de mano. Conserva los juegos originales como <b>Modo Arcade</b> y añade un <b>Modo Terapéutico</b> con objetivos, niveles y seguimiento.</p><div class="grid3"><div class="select-card" onclick="selectTherapy('coordination')"><div class="icon">🎯</div><h3>Coordinación motriz</h3><p>Activaciones rápidas, control fino y reacción muscular.</p><span class="tag">Arcade + Terapéutico</span></div><div class="select-card" onclick="selectTherapy('aperture')"><div class="icon">🖐️</div><h3>Apertura sostenida</h3><p>Apertura/cierre de mano, control estable y relajación.</p><span class="tag">Arcade + Terapéutico</span></div><div class="select-card" onclick="selectTherapy('isometric')"><div class="icon">💪</div><h3>Fuerza isométrica</h3><p>Fuerza sostenida, resistencia y estabilidad de agarre.</p><span class="tag">Arcade + Terapéutico</span></div></div><br><button class="btn amber" onclick="startCalibration()">⚙️ Calibrar paciente</button>`)}
+window.selectTherapy=function(id){selectedTherapy=id;const t=THERAPIES[id];state="mode";showScreen(`<h2 style="color:${t.color}">${t.icon} ${t.name}</h2><p class="lead">${t.short}. ${t.goal}</p><div class="grid2"><div class="select-card" onclick="selectMode('arcade')"><div class="icon">🎮</div><h3>Modo Arcade</h3><p>${t.arcade}</p><span class="tag">Juego original modernizado</span></div><div class="select-card" onclick="selectMode('therapeutic')"><div class="icon">🧠</div><h3>Modo Terapéutico</h3><p>${t.therapeutic}</p><span class="tag">Entrenamiento guiado</span></div></div><br><button class="btn" onclick="home()">← Volver</button>`,t.name,"Elige entre el modo arcade o el entrenamiento terapéutico guiado.")}
+window.selectMode=function(m){selectedMode=m;const t=THERAPIES[selectedTherapy],cfg=LEVELS[m][selectedTherapy];state="level";showScreen(`<h2>${t.icon} ${t.name}</h2><p class="lead">${MODE_LABEL[m]} · Selecciona nivel progresivo.</p><div class="grid3">${[1,2,3].map(n=>`<div class="select-card" onclick="selectLevel(${n})"><div class="icon">${n===1?"🌱":n===2?"⚙️":"🔥"}</div><h3>Nivel ${n} · ${cfg[n].name}</h3><p>${cfg[n].desc}</p><span class="tag">${n===1?"Baja":n===2?"Media":"Alta"}</span></div>`).join("")}</div><br><button class="btn" onclick="selectTherapy('${selectedTherapy}')">← Volver</button>`,`${MODE_LABEL[m]}`,"Selecciona dificultad según control, dolor y progreso del paciente.")}
+window.selectLevel=function(n){selectedLevel=n;showObjective()}
+function showObjective(){const t=THERAPIES[selectedTherapy],c=LEVELS[selectedMode][selectedTherapy][selectedLevel];showScreen(`<div class="objective"><div><h2 style="color:${t.color}">${t.icon} ${t.name}</h2><p class="lead">${MODE_LABEL[selectedMode]} · Nivel ${selectedLevel}: ${c.name}</p><div class="info-box"><b>Objetivo terapéutico</b><p>${t.therapy}</p></div><div class="info-box"><b>Zona muscular asociada</b><p>${t.muscles}</p></div><div class="info-box"><b>Meta funcional</b><p>${t.goal}</p></div></div><div><div class="info-box"><b>Cómo jugar</b><p>${selectedMode==="arcade"?t.arcade:t.therapeutic}</p></div><div class="info-box"><b>Reto del nivel</b><p>${c.desc}</p></div><button class="btn primary" onclick="startGame()">▶ Comenzar terapia</button><button class="btn" onclick="selectMode('${selectedMode}')">← Cambiar nivel</button></div></div>`,"Objetivo terapéutico","Antes de iniciar se explica qué se entrena y para qué sirve funcionalmente.")}
+function startCalibration(){state="cal";let step=0,samples=[],start=performance.now();showScreen(`<h2>Calibración personalizada</h2><p class="lead" id="calText">Preparando medición…</p><div class="progress"><div id="calBar"></div></div><br><button class="btn" onclick="home()">Cancelar</button>`,"Calibración del paciente","Reposo, contracción máxima y umbral personalizado.");const timer=setInterval(()=>{if(state!=="cal"){clearInterval(timer);return}const elapsed=performance.now()-start,bar=document.getElementById("calBar"),txt=document.getElementById("calText");if(!bar||!txt)return;if(step===0){txt.innerHTML="Fase 1: reposo. Relaja la mano. En demo: mouse abajo y sin clic.";bar.style.width=Math.min(100,elapsed/3000*100)+"%";samples.push(intensity);if(elapsed>=3000){minNoise=Math.max(0,Math.max(...samples));step=1;samples=[];start=performance.now()}}else{txt.innerHTML="Fase 2: contracción máxima. En demo: clic sostenido o mouse arriba.";bar.style.width=Math.min(100,elapsed/3000*100)+"%";samples.push(intensity);if(elapsed>=3000){maxSignal=Math.max(20,Math.max(...samples));threshold=minNoise+Math.max(10,maxSignal-minNoise)*.25;clearInterval(timer);showScreen(`<h2 style="color:var(--green)">✓ Calibración exitosa</h2><p class="lead">Reposo: ${minNoise.toFixed(1)} · Máximo: ${maxSignal.toFixed(1)} · Umbral: ${threshold.toFixed(1)}</p><button class="btn primary" onclick="home()">← Volver al inicio</button>`,"Calibración lista","El sistema se adaptó a la señal del paciente.")}}},50)}
+window.startGame=function(){hideScreen();state="play";playing=true;paused=false;reps=0;blockZone=0;blockStart=performance.now();startTime=performance.now();player={x:110,y:canvas.height-140,vy:0};obstacles=[];nextObs=performance.now()+1000;cooldown=0;charge=0;holdTimer=0;targetX=Math.random();marker=0;markerDir=1;pulseActive=false;phase="open";ui.title.textContent=`${THERAPIES[selectedTherapy].name}`;ui.sub.textContent=`${MODE_LABEL[selectedMode]} · Nivel ${selectedLevel}`}
+function gameOver(){state="over";playing=false;showScreen(`<h2 style="color:var(--danger)">Fin del intento</h2><p class="lead">Lograste ${reps} repeticiones. Puedes repetir o revisar el resumen terapéutico.</p><div class="grid2"><button class="btn primary" onclick="startGame()">↩ Reiniciar ejercicio</button><button class="btn green" onclick="openSummary()">📊 Ver resumen</button></div>`,"Fin del intento","Revisa el desempeño o reinicia el ejercicio.")}
+function addRep(){reps++;totalReps++;session.totalReps=totalReps;if(reps>0&&reps%10===0)achievement()}
+function achievement(){paused=true;playing=false;const t=THERAPIES[selectedTherapy],c=LEVELS[selectedMode][selectedTherapy][selectedLevel],dur=Math.max(1,(performance.now()-blockStart)/1000),control=Math.min(100,Math.round(blockZone/dur*100)),newBadge=!badges.includes(t.badge);if(newBadge){badges.push(t.badge);session.badges.push(t.badge);localStorage.setItem("te_badges",JSON.stringify(badges))}session.blocks.push({therapy:t.name,mode:MODE_LABEL[selectedMode],level:selectedLevel,reps:10,control,zone:Math.round(blockZone),time:Date.now()});openModal("🎉 Bloque completado",`<p>Realizaste 10 repeticiones de <b>${t.name}</b> en ${MODE_LABEL[selectedMode]}.</p><div class="modal-grid"><div class="modal-item"><b>Qué trabajaste</b><span>${t.therapy}</span></div><div class="modal-item"><b>Zona asociada</b><span>${t.muscles}</span></div><div class="modal-item"><b>Meta funcional</b><span>${t.goal}</span></div><div class="modal-item"><b>Control del bloque</b><span>${control}% · Nivel ${selectedLevel}: ${c.name}</span></div></div><span class="badge ${newBadge?"new":""}">${newBadge?"Nueva insignia: ":"Insignia: "}${t.badge}</span><p>La calidad del movimiento es más importante que la velocidad o la fuerza máxima.</p>`,[{label:"Registrar dolor",className:"amber",fn:showPain},{label:"Descanso",className:"green",fn:startRest}])}
+function showPain(){let buttons="";for(let i=0;i<=10;i++)buttons+=`<button onclick="selectPain(${i})">${i}</button>`;openModal("Escala de dolor / fatiga",`<p>0 = sin dolor · 3 = leve · 5 = moderado · 6 o más = mejor detener o reducir exigencia.</p><div class="pain">${buttons}</div><div id="painMsg" class="modal-item"><b>Selecciona un valor</b><span>El sistema usará este dato para recomendar continuidad o descanso.</span></div>`,[{label:"Finalizar sesión",className:"red",fn:endSession}])}
+window.selectPain=function(v){session.pain.push({value:v,therapy:selectedTherapy,mode:selectedMode,level:selectedLevel,time:Date.now()});let title,msg;if(v<=3){title="Dolor mínimo";msg="Puedes continuar con descanso breve. Buen control."}else if(v<=5){title="Dolor moderado";msg="Mantén el nivel o reduce velocidad. Aumenta descanso."}else{title="Dolor alto";msg="Recomendación: detener la sesión y consultar si persiste."}document.getElementById("painMsg").innerHTML=`<b>${title}</b><span>${msg}</span>`;ui.modalActions.innerHTML="";const b=document.createElement("button");b.className="btn "+(v<=5?"green":"red");b.textContent=v<=5?"Ir a descanso":"Ver resumen";b.onclick=v<=5?startRest:endSession;ui.modalActions.appendChild(b)}
+function startRest(){closeModal();state="rest";restEnd=performance.now()+20000;blockZone=0;blockStart=performance.now();hideScreen()}function openModal(title,body,actions=[]){paused=true;ui.modalContent.innerHTML=`<h2>${title}</h2>${body}`;ui.modalActions.innerHTML="";actions.forEach(a=>{const b=document.createElement("button");b.className="btn "+(a.className||"");b.textContent=a.label;b.onclick=a.fn;ui.modalActions.appendChild(b)});ui.modalBg.classList.add("show")}function closeModal(){ui.modalBg.classList.remove("show");paused=false}
+function endSession(){session.endedAt=Date.now();session.maxActivation=maxActivation;session.totalReps=totalReps;history.unshift(session);history=history.slice(0,12);localStorage.setItem("te_history",JSON.stringify(history));openSummary()}
+function openSummary(){const duration=Math.round(((session.endedAt||Date.now())-session.startedAt)/1000),avgPain=session.pain.length?(session.pain.reduce((a,b)=>a+b.value,0)/session.pain.length).toFixed(1):"No registrado",blocks=session.blocks.slice(-6).map(b=>`<div class="modal-item"><b>${b.therapy}</b><span>${b.mode} · Nivel ${b.level} · ${b.reps} reps · Control ${b.control}%</span></div>`).join("")||`<div class="modal-item"><b>Sin bloques</b><span>Completa 10 repeticiones para generar análisis.</span></div>`;openModal("📊 Resumen de sesión",`<div class="modal-grid"><div class="modal-item"><b>Tiempo total</b><span>${fmt(duration)}</span></div><div class="modal-item"><b>Repeticiones totales</b><span>${totalReps}</span></div><div class="modal-item"><b>Mejor activación</b><span>${Math.round(maxActivation)}%</span></div><div class="modal-item"><b>Dolor promedio</b><span>${avgPain}</span></div></div><h3>Bloques completados</h3><div class="modal-grid">${blocks}</div><h3>Insignias</h3><p>${badges.map(b=>`<span class="badge">${b}</span>`).join("")||"Sin insignias todavía."}</p>`,[{label:"Nueva sesión",className:"green",fn:()=>{session={startedAt:Date.now(),blocks:[],pain:[],badges:[],totalReps:0,maxActivation:0};totalReps=0;timeInZone=0;maxActivation=0;closeModal();home()}},{label:"Cerrar",fn:closeModal}])}
+
+/* ── CANVAS DRAWING ───────────────────────────────────────────────── */
+function bg(){const w=canvas.width,h=canvas.height;ctx.clearRect(0,0,w,h);const g=ctx.createLinearGradient(0,0,w,h);g.addColorStop(0,"#F8FAFC");g.addColorStop(1,"#EEF3FA");ctx.fillStyle=g;ctx.fillRect(0,0,w,h);ctx.save();ctx.globalAlpha=.45;ctx.strokeStyle="#E2EAF4";ctx.lineWidth=1;for(let x=0;x<w;x+=44){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}for(let y=0;y<h;y+=44){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}ctx.restore()}
+function text(t,x,y,s=18,c="#0F172A",w=700,a="center"){ctx.fillStyle=c;ctx.font=`${w} ${s}px 'Plus Jakarta Sans',Arial`;ctx.textAlign=a;ctx.textBaseline="middle";ctx.fillText(t,x,y)}function rr(x,y,w,h,r,fill,stroke){ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1.5;ctx.stroke()}}
+function drawOverlay(){const t=selectedTherapy?THERAPIES[selectedTherapy]:null;if(!t)return;rr(20,18,320,92,14,"rgba(255,255,255,.92)","#E2EBF5");text(`${t.icon} ${t.name}`,38,44,14,t.color,800,"left");text(`${MODE_LABEL[selectedMode]} · Nivel ${selectedLevel}`,38,66,12,"#1E40AF",700,"left");text(selectedMode==="arcade"?"Juego motivacional":"Entrenamiento guiado",38,87,11,"#64748B",600,"left")}
+function drawCoordArcade(dt){const cfg=LEVELS.arcade.coordination[selectedLevel],floor=canvas.height-105;if(active()&&player.y>=floor&&performance.now()-cooldown>280){player.vy=-22;cooldown=performance.now()}player.vy+=1.2;player.y+=player.vy;if(player.y>floor){player.y=floor;player.vy=0}if(performance.now()>nextObs){obstacles.push({x:canvas.width+20,passed:false,double:cfg.double&&Math.random()<.35});nextObs=performance.now()+cfg.spawn+Math.random()*500}obstacles.forEach(o=>o.x-=cfg.speed);obstacles=obstacles.filter(o=>o.x>-80);ctx.strokeStyle="#1E3A5F";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,floor);ctx.lineTo(canvas.width,floor);ctx.stroke();ctx.fillStyle=THERAPIES.coordination.color;ctx.beginPath();ctx.ellipse(player.x+22,player.y-21,22,22,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.stroke();for(const o of obstacles){ctx.fillStyle=o.double?"#D97706":"#DC2626";ctx.beginPath();ctx.moveTo(o.x,floor);ctx.lineTo(o.x+23,floor-48);ctx.lineTo(o.x+46,floor);ctx.closePath();ctx.fill();if(o.double){ctx.beginPath();ctx.moveTo(o.x+54,floor);ctx.lineTo(o.x+77,floor-48);ctx.lineTo(o.x+100,floor);ctx.closePath();ctx.fill()}const width=o.double?100:46;if(player.x+34>o.x&&player.x+4<o.x+width&&player.y>floor-38)gameOver();if(o.x<player.x&&!o.passed){o.passed=true;addRep()}}text("Contracción rápida = salto",canvas.width/2,48,15,"#64748B",600)}
+function drawApertureArcade(dt){const cfg=LEVELS.arcade.aperture[selectedLevel];player.vy+=active()?-1.08:.62;player.vy=Math.max(-8,Math.min(8,player.vy));player.y+=player.vy;if(player.y<25){player.y=25;player.vy=0}if(player.y>canvas.height-70)gameOver();if(performance.now()>nextObs){const gy=80+Math.random()*(canvas.height-260);obstacles.push({x:canvas.width+30,gy,gap:cfg.gap,passed:false});nextObs=performance.now()+2100}obstacles.forEach(o=>o.x-=cfg.speed);obstacles=obstacles.filter(o=>o.x>-80);ctx.fillStyle=THERAPIES.aperture.color;ctx.beginPath();ctx.ellipse(player.x+22,player.y,22,22,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.stroke();for(const o of obstacles){rr(o.x,0,58,o.gy,12,"rgba(15,23,42,.12)","rgba(15,23,42,.18)");rr(o.x,o.gy+o.gap,58,canvas.height-(o.gy+o.gap),12,"rgba(15,23,42,.12)","rgba(15,23,42,.18)");const hitX=player.x+36>o.x&&player.x<o.x+58,hitY=player.y-20<o.gy||player.y+20>o.gy+o.gap;if(hitX&&hitY)gameOver();if(o.x<player.x&&!o.passed){o.passed=true;addRep()}}text("Contracción = subir · reposo = bajar",canvas.width/2,48,15,"#64748B",600)}
+function drawForceArcade(dt){const cfg=LEVELS.arcade.isometric[selectedLevel];charge+=active()?cfg.gain:-cfg.decay;charge=Math.max(0,Math.min(110,charge));const cx=canvas.width/2,cy=canvas.height/2,bh=Math.min(370,canvas.height-170),bw=220;rr(cx-bw/2,cy-bh/2,bw,bh,26,"#FFFFFF","#E2EBF5");const fillH=Math.min(100,charge)/100*bh;let gr=ctx.createLinearGradient(0,cy+bh/2,0,cy-bh/2);gr.addColorStop(0,"#EC4899");gr.addColorStop(.6,"#F59E0B");gr.addColorStop(1,"#10B981");if(fillH>15)rr(cx-bw/2+8,cy+bh/2-fillH+8,bw-16,fillH-16,20,gr,null);text(`${Math.floor(Math.min(100,charge))}%`,cx,cy,48,charge>55?"#0F172A":"#0F172A",800);text(cfg.hold?`Llena y sostén ${cfg.hold}s`:"Llena la barra de fuerza",cx,cy+bh/2+45,16,"#64748B",600);if(charge>=100){if(cfg.hold){holdTimer+=dt;if(holdTimer>=cfg.hold){holdTimer=0;charge=0;addRep()}}else{charge=0;addRep()}}else holdTimer=0}
+function drawCoordTherapeutic(dt){const cfg=LEVELS.therapeutic.coordination[selectedLevel];marker+=markerDir*dt*.55;if(marker>1){marker=1;markerDir=-1}if(marker<0){marker=0;markerDir=1;targetX=Math.random()*(1-cfg.window)}const w=canvas.width,h=canvas.height,lineW=w*.72,x=w*.14,y=h/2;rr(x,y-12,lineW,24,999,"#EEF3FA","#E2EBF5");rr(x+targetX*lineW,y-16,cfg.window*lineW,32,999,"rgba(16,185,129,.32)",null);ctx.fillStyle="#0C1A33";ctx.beginPath();ctx.arc(x+marker*lineW,y,18,0,Math.PI*2);ctx.fill();const inWin=marker>=targetX&&marker<=targetX+cfg.window;if(active()&&!pulseActive){pulseActive=true;if(inWin){addRep();targetX=Math.random()*(1-cfg.window)}}if(!active())pulseActive=false;text("Pulso preciso",w/2,105,34,THERAPIES.coordination.color,800);text(cfg.pulse==="pattern"?"Patrón: corto · corto · largo":"Activa solo cuando el marcador esté en zona verde",w/2,155,15,"#64748B",600);text(inWin?"¡Ahora!":"Espera la zona",w/2,y+70,20,inWin?"#10B981":"#64748B",800)}
+function drawApertureTherapeutic(dt){const cfg=LEVELS.therapeutic.aperture[selectedLevel],p=pct(),w=canvas.width,h=canvas.height,cx=w/2;let targetMin=cfg.min,targetMax=cfg.max;if(cfg.phase){if(phase==="open"){targetMin=cfg.min;targetMax=cfg.max;if(inRange(targetMin,targetMax)&&holdTimer>.8){phase="hold";holdTimer=0}}else if(phase==="hold"){targetMin=cfg.min;targetMax=cfg.max;if(holdTimer>=cfg.hold){phase="relax";holdTimer=0}}else{targetMin=0;targetMax=20;if(inRange(targetMin,targetMax)){phase="open";holdTimer=0;addRep()}}}const inside=p>=targetMin&&p<=targetMax;if(inside)holdTimer+=dt;else holdTimer=Math.max(0,holdTimer-dt*.6);if(!cfg.phase&&holdTimer>=cfg.hold){holdTimer=0;addRep()}rr(cx-260,h/2-40,520,80,28,"#FFFFFF","#E2EBF5");rr(cx-250,h/2-24,500,48,999,"#EEF3FA",null);rr(cx-250+targetMin/100*500,h/2-28,(targetMax-targetMin)/100*500,56,999,"rgba(16,185,129,.32)",null);ctx.fillStyle=inside?"#059669":"#0C1A33";ctx.beginPath();ctx.arc(cx-250+p/100*500,h/2,20,0,Math.PI*2);ctx.fill();text("Zona de apertura",cx,100,34,THERAPIES.aperture.color,800);text(cfg.phase?`Fase: ${phase==="open"?"abrir":phase==="hold"?"sostener":"relajar"}`:`Mantén ${cfg.hold}s en zona verde`,cx,148,15,"#64748B",600);text(`${holdTimer.toFixed(1)}s / ${cfg.phase&&phase==="relax"?"relajar":cfg.hold+"s"}`,cx,h/2+80,22,inside?"#10B981":"#64748B",800);if(inside)blockZone+=dt}
+function drawIsoTherapeutic(dt){const cfg=LEVELS.therapeutic.isometric[selectedLevel],p=pct(),w=canvas.width,h=canvas.height,cx=w/2,cy=h/2,inside=p>=cfg.min&&p<=cfg.max,peak=p>cfg.max+8;if(inside)holdTimer+=dt;else holdTimer=Math.max(0,holdTimer-dt*.7);if(holdTimer>=cfg.hold){holdTimer=0;addRep()}rr(cx-110,cy-185,220,370,28,"#FFFFFF","#E2EBF5");rr(cx-92,cy+170-(cfg.max/100*340),184,(cfg.max-cfg.min)/100*340,16,"rgba(16,185,129,.32)",null);let gr=ctx.createLinearGradient(0,cy+170,0,cy-170);gr.addColorStop(0,"#EC4899");gr.addColorStop(.7,"#F59E0B");gr.addColorStop(1,"#10B981");rr(cx-92,cy+170-p/100*340,184,p/100*340,16,gr,null);text("Fuerza controlada",cx,70,34,THERAPIES.isometric.color,800);text(`Objetivo: ${cfg.min}% – ${cfg.max}% durante ${cfg.hold}s`,cx,118,15,"#64748B",600);text(peak?"Exceso de fuerza":inside?"En zona correcta":"Busca la zona verde",cx,cy+215,22,peak?"#DC2626":inside?"#10B981":"#64748B",800);text(`${holdTimer.toFixed(1)}s / ${cfg.hold}s`,cx,cy,40,p>55?"#0F172A":"#0F172A",800);if(inside)blockZone+=dt}
+function drawGame(dt){bg();if(!selectedTherapy)return;drawOverlay();if(selectedMode==="arcade"&&selectedTherapy==="coordination")drawCoordArcade(dt);if(selectedMode==="arcade"&&selectedTherapy==="aperture")drawApertureArcade(dt);if(selectedMode==="arcade"&&selectedTherapy==="isometric")drawForceArcade(dt);if(selectedMode==="therapeutic"&&selectedTherapy==="coordination")drawCoordTherapeutic(dt);if(selectedMode==="therapeutic"&&selectedTherapy==="aperture")drawApertureTherapeutic(dt);if(selectedMode==="therapeutic"&&selectedTherapy==="isometric")drawIsoTherapeutic(dt)}
+function drawRest(){bg();const rest=Math.max(0,Math.ceil((restEnd-performance.now())/1000));text("Descanso guiado",canvas.width/2,canvas.height/2-86,36,"#10B981",800);text("Relaja la mano. La recuperación también hace parte de la terapia.",canvas.width/2,canvas.height/2-42,15,"#64748B",600);ctx.strokeStyle="#10B981";ctx.lineWidth=6;ctx.beginPath();ctx.arc(canvas.width/2,canvas.height/2+42,72,0,Math.PI*2);ctx.stroke();text(String(rest),canvas.width/2,canvas.height/2+45,52,"#0C1A33",800);if(rest<=0){state="play";playing=true;paused=false;blockStart=performance.now();blockZone=0}}
+function fmt(s){const m=Math.floor(s/60),ss=s%60;return `${String(m).padStart(2,"0")}:${String(ss).padStart(2,"0")}`}
+let last=performance.now();function loop(){const now=performance.now(),dt=Math.min(.05,(now-last)/1000);last=now;inputUpdate();if(playing&&!paused&&state==="play")drawGame(dt);else if(state==="rest")drawRest();else if(!screen.classList.contains("hidden"))bg();if(active()&&state==="play"&&!paused){timeInZone+=dt;blockZone+=dt}maxActivation=Math.max(maxActivation,pct());session.maxActivation=maxActivation;updateHUD();requestAnimationFrame(loop)}
+function updateHUD(){const p=pct(),thrPct=Math.max(0,Math.min(100,(threshold-minNoise)/Math.max(1,maxSignal-minNoise)*100));ui.fill.style.width=p+"%";ui.fill.style.filter=active()?"brightness(1.1)":"grayscale(.3) brightness(.9)";ui.thrLine.style.left=thrPct+"%";ui.rawText.textContent=intensity.toFixed(1);ui.activeText.textContent=active()?"Contracción":"Reposo";ui.activeText.style.color=active()?"#10B981":"";ui.minVal.textContent=minNoise.toFixed(1);ui.maxVal.textContent=maxSignal.toFixed(1);ui.thrVal.textContent=threshold.toFixed(1);ui.zoneVal.textContent=Math.round(timeInZone)+"s";ui.repsText.textContent=reps;ui.levelTop.textContent=selectedLevel||1;ui.badgeTop.textContent=badges.length;ui.therapyText.textContent=selectedTherapy?THERAPIES[selectedTherapy].name.split(" ")[0]:"—";ui.modeText.textContent=selectedMode?(selectedMode==="arcade"?"Arcade":"Terapéutico"):"—";if(state==="play"||state==="rest")ui.timeText.textContent=fmt(Math.floor((performance.now()-startTime)/1000));else ui.timeText.textContent="00:00"}
+document.getElementById("demoBtn").onclick=()=>{inputMode="demo";setStatus("Demo mouse activo","demo")};
+document.getElementById("serialBtn").onclick=connectSerial;
+document.getElementById("calBtn").onclick=startCalibration;
+document.getElementById("therapyBtn").onclick=home;
+document.getElementById("homeBtn").onclick=home;
+document.getElementById("summaryBtn").onclick=openSummary;
+document.getElementById("endBtn").onclick=endSession;
+window.addEventListener("keydown",e=>{if(e.key==="1")selectTherapy("coordination");if(e.key==="2")selectTherapy("aperture");if(e.key==="3")selectTherapy("isometric");if(e.key.toLowerCase()==="m")home()});
+if(!CanvasRenderingContext2D.prototype.roundRect){CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){this.beginPath();this.moveTo(x+r,y);this.arcTo(x+w,y,x+w,y+h,r);this.arcTo(x+w,y+h,x,y+h,r);this.arcTo(x,y+h,x,y,r);this.arcTo(x,y,x+w,y,r);this.closePath()}}
+home();loop();
+</script>
+</body>
+</html>
